@@ -24,7 +24,7 @@ jobs:
           build-scan-terms-of-use-agree: 'yes'
       - name: Gradle build and checks
         run: ./gradlew createAndroidVersionCode && ./gradlew assembleDebug testAndroidHostTest jvmTest :api:test detekt lint -Pkover koverHtmlReport --continue && ./gradlew --stop
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: problems and reports
           path: |
