@@ -5,5 +5,8 @@ updates:
     schedule:
       interval: "daily"
     target-branch: "main"
-    reviewers:
-      - Minirogue
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    target-branch: "main"
