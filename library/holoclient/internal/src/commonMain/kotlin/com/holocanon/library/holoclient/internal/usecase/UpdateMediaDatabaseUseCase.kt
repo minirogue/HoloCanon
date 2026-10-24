@@ -101,7 +101,9 @@ class UpdateMediaDatabaseUseCase internal constructor(
                     updateFilters()
                 }
                 withContext(Dispatchers.Main) {
-                    sendInAppNotification(getString(Res.string.holoclient_database_synced))
+                    sendInAppNotification(
+                        getString(Res.string.holoclient_database_synced),
+                    )
                 }
             }
         }
@@ -128,8 +130,7 @@ class UpdateMediaDatabaseUseCase internal constructor(
         publisher = companyMap[this.publisher] ?: -1,
     )
 
-    private suspend fun getSeriesMap() =
-        daoSeries.getAllSeries().first().associate { it.title to it.id }
+    private suspend fun getSeriesMap() = daoSeries.getAllSeries().first().associate { it.title to it.id }
 
     private suspend fun getCompanyMap(): Map<Company, Int> = try {
         val dtoCompanies = daoCompany.getAllCompanies().first()

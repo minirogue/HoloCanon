@@ -5,12 +5,12 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import settings.model.CheckboxSettings
 
 class FakeGetCheckboxSettings : GetCheckboxSettings {
-    private var returnFlow = MutableSharedFlow<CheckboxSettings>(replay = Int.MAX_VALUE)
+    private var returnFlow = MutableSharedFlow<CheckboxSettings>(
+        replay = Int.MAX_VALUE,
+    )
     suspend fun emit(checkboxSettings: CheckboxSettings) {
         returnFlow.emit(checkboxSettings)
     }
 
-    override fun invoke(): Flow<CheckboxSettings> {
-        return returnFlow
-    }
+    override fun invoke(): Flow<CheckboxSettings> = returnFlow
 }

@@ -40,7 +40,11 @@ internal fun MediaItemScreen(
     itemId: Long,
     viewModelFactory: ViewMediaItemViewModel.Factory,
     navController: NavController,
-    viewModel: ViewMediaItemViewModel = viewModel { viewModelFactory.create(itemId) },
+    viewModel: ViewMediaItemViewModel = viewModel {
+        viewModelFactory.create(
+            itemId,
+        )
+    },
 ) {
     viewModel.state.withStateOrLoadingScreen { state ->
         Column(modifier = modifier.fillMaxSize()) {
@@ -83,7 +87,9 @@ private fun MediaItemViewLeftColumn(
 ) = Column(modifier = modifier.fillMaxHeight()) {
     HoloImage(
         modifier = Modifier.padding(4.dp),
-        contentDescription = stringResource(Res.string.media_item_content_description_cover_art),
+        contentDescription = stringResource(
+            Res.string.media_item_content_description_cover_art,
+        ),
         sourceUri = imageUrl,
         isNetworkAllowed = isNetworkAllowed,
     )
@@ -112,7 +118,12 @@ private fun MediaItemRightColumn(
 ) = Column(modifier = modifier.fillMaxHeight()) {
     mediaItem.type.getSerialName()
         .also { Text(text = it, modifier = Modifier.padding(8.dp)) }
-    mediaItem.releaseDate.also { Text(text = it, modifier = Modifier.padding(8.dp)) }
+    mediaItem.releaseDate.also {
+        Text(
+            text = it,
+            modifier = Modifier.padding(8.dp),
+        )
+    }
     mediaItem.series?.takeIf { it.isNotBlank() }?.also {
         Button(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -170,14 +181,13 @@ private fun CheckboxGroup(
 }
 
 @Composable
-private fun TextAndCheckbox(text: String, isBoxChecked: Boolean, onClick: () -> Unit) =
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.End,
-    ) {
-        Text(text = text, modifier = Modifier.padding(end = 8.dp))
-        Checkbox(checked = isBoxChecked, onCheckedChange = null)
-    }
+private fun TextAndCheckbox(text: String, isBoxChecked: Boolean, onClick: () -> Unit) = Row(
+    Modifier
+        .fillMaxWidth()
+        .clickable { onClick() }
+        .padding(8.dp),
+    horizontalArrangement = Arrangement.End,
+) {
+    Text(text = text, modifier = Modifier.padding(end = 8.dp))
+    Checkbox(checked = isBoxChecked, onCheckedChange = null)
+}

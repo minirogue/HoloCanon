@@ -32,8 +32,16 @@ class GetActiveFiltersImplTest {
         daoFilter.setActiveFilters(
             flowOf(
                 listOf(
-                    fullFilter(id = 1, name = "MediaType1", filterType = FilterType.MediaType),
-                    fullFilter(id = 2, name = "Checkbox1", filterType = FilterType.CheckboxOne),
+                    fullFilter(
+                        id = 1,
+                        name = "MediaType1",
+                        filterType = FilterType.MediaType,
+                    ),
+                    fullFilter(
+                        id = 2,
+                        name = "Checkbox1",
+                        filterType = FilterType.CheckboxOne,
+                    ),
                 ),
             ),
         )
@@ -45,8 +53,20 @@ class GetActiveFiltersImplTest {
         // Assert
         assertEquals(
             listOf(
-                MediaFilter(1, "MediaType1", FilterType.MediaType, isPositive = true, isActive = true),
-                MediaFilter(2, "Checkbox1", FilterType.CheckboxOne, isPositive = true, isActive = true),
+                MediaFilter(
+                    1,
+                    "MediaType1",
+                    FilterType.MediaType,
+                    isPositive = true,
+                    isActive = true,
+                ),
+                MediaFilter(
+                    2,
+                    "Checkbox1",
+                    FilterType.CheckboxOne,
+                    isPositive = true,
+                    isActive = true,
+                ),
             ),
             result,
         )
@@ -58,8 +78,16 @@ class GetActiveFiltersImplTest {
         daoFilter.setActiveFilters(
             flowOf(
                 listOf(
-                    fullFilter(id = 1, name = "MediaType1", filterType = FilterType.MediaType),
-                    fullFilter(id = 2, name = "Checkbox1", filterType = FilterType.CheckboxOne),
+                    fullFilter(
+                        id = 1,
+                        name = "MediaType1",
+                        filterType = FilterType.MediaType,
+                    ),
+                    fullFilter(
+                        id = 2,
+                        name = "Checkbox1",
+                        filterType = FilterType.CheckboxOne,
+                    ),
                 ),
             ),
         )
@@ -82,7 +110,15 @@ class GetActiveFiltersImplTest {
 
         // Assert
         assertEquals(
-            listOf(MediaFilter(2, "Checkbox1", FilterType.CheckboxOne, isPositive = true, isActive = true)),
+            listOf(
+                MediaFilter(
+                    2,
+                    "Checkbox1",
+                    FilterType.CheckboxOne,
+                    isPositive = true,
+                    isActive = true,
+                ),
+            ),
             result,
         )
     }
@@ -104,7 +140,15 @@ class GetActiveFiltersImplTest {
     fun `invoke returns empty list when all active filters are permanent`() = runTest {
         // Arrange
         daoFilter.setActiveFilters(
-            flowOf(listOf(fullFilter(id = 1, name = "MediaType1", filterType = FilterType.MediaType))),
+            flowOf(
+                listOf(
+                    fullFilter(
+                        id = 1,
+                        name = "MediaType1",
+                        filterType = FilterType.MediaType,
+                    ),
+                ),
+            ),
         )
         getPermanentFilters.setPermanentFilters(
             flowOf(
@@ -127,18 +171,14 @@ class GetActiveFiltersImplTest {
         assertEquals(emptyList(), result)
     }
 
-    private fun fullFilter(
-        id: Int,
-        name: String,
-        filterType: FilterType,
-        isPositive: Boolean = true,
-    ): FullFilter = FullFilter(
-        filterObjectDto = FilterObjectDto(
-            id = id,
-            filterType = filterType.legacyIntegerConversion,
-            active = true,
-            displayText = name,
-        ),
-        is_positive = isPositive,
-    )
+    private fun fullFilter(id: Int, name: String, filterType: FilterType, isPositive: Boolean = true): FullFilter =
+        FullFilter(
+            filterObjectDto = FilterObjectDto(
+                id = id,
+                filterType = filterType.legacyIntegerConversion,
+                active = true,
+                displayText = name,
+            ),
+            is_positive = isPositive,
+        )
 }

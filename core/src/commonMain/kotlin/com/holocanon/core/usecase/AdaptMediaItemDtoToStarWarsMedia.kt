@@ -50,11 +50,19 @@ class AdaptMediaItemDtoToStarWarsMedia internal constructor(
                 }
             }
         }
-        .shareIn(scope = adapterScope, started = SharingStarted.Lazily, replay = 1)
+        .shareIn(
+            scope = adapterScope,
+            started = SharingStarted.Lazily,
+            replay = 1,
+        )
 
     private val seriesMap: SharedFlow<Map<Int, String>> = daoSeries.getAllSeries()
         .map { list -> list.associate { it.id to it.title } }
-        .shareIn(scope = adapterScope, started = SharingStarted.Lazily, replay = 1)
+        .shareIn(
+            scope = adapterScope,
+            started = SharingStarted.Lazily,
+            replay = 1,
+        )
 
     suspend operator fun invoke(mediaItemDto: MediaItemDto): StarWarsMedia = StarWarsMedia(
         id = mediaItemDto.id.toLong(),

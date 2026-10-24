@@ -65,13 +65,20 @@ private fun HolocanonAppBar(navController: NavController, appBarConfig: AppBarCo
             )
         },
         navigationIcon = {
-            if (navBackStackEntry?.destination?.let { TabInfo.fromNavDestination(it) } == null) {
+            if (navBackStackEntry?.destination?.let {
+                    TabInfo.fromNavDestination(
+                        it,
+                    )
+                } == null
+            ) {
                 IconButton(
                     onClick = { navController.popBackStack() },
                 ) {
                     Icon(
                         imageVector = Icons.AutoMirrored.Default.ArrowBack,
-                        contentDescription = stringResource(Res.string.content_description_back_button),
+                        contentDescription = stringResource(
+                            Res.string.content_description_back_button,
+                        ),
                     )
                 }
             }
@@ -81,7 +88,9 @@ private fun HolocanonAppBar(navController: NavController, appBarConfig: AppBarCo
             IconButton(onClick = { navController.navigate(SettingsNav) }) {
                 Icon(
                     imageVector = Icons.Default.Settings,
-                    contentDescription = stringResource(Res.string.content_description_navigate_to_settings),
+                    contentDescription = stringResource(
+                        Res.string.content_description_navigate_to_settings,
+                    ),
                 )
             }
         },
@@ -98,7 +107,11 @@ private fun MainScreen(
     val currentBackStackEntry = navController.currentBackStackEntryAsState()
     val selectedTab = remember {
         derivedStateOf {
-            currentBackStackEntry.value?.destination?.let { TabInfo.fromNavDestination(it) }
+            currentBackStackEntry.value?.destination?.let {
+                TabInfo.fromNavDestination(
+                    it,
+                )
+            }
         }
     }
 
@@ -107,7 +120,11 @@ private fun MainScreen(
             TabInfo.entries.forEach { tabInfo ->
                 Tab(
                     selected = tabInfo == selectedTab.value,
-                    onClick = { navController.navigate(route = tabInfo.navDestination) },
+                    onClick = {
+                        navController.navigate(
+                            route = tabInfo.navDestination,
+                        )
+                    },
                     text = { Text(stringResource(tabInfo.tabNameRes)) },
                 )
             }

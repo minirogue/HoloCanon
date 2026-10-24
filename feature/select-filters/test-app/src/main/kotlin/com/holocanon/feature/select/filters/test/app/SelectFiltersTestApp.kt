@@ -9,7 +9,9 @@ import dev.zacsweers.metro.createGraph
 class SelectFiltersTestApp : Application() {
     override fun onCreate() {
         super.onCreate()
-        TestAppDi.setInstance(createGraph<SelectFiltersTestAppDi>().testAppDiFactory.createTestAppDi())
+        TestAppDi.setInstance(
+            createGraph<SelectFiltersTestAppDi>().testAppDiFactory.createTestAppDi(),
+        )
     }
 }
 

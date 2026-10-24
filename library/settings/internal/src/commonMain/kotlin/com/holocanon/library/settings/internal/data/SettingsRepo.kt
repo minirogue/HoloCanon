@@ -35,23 +35,34 @@ private const val THEME_SETTING_KEY = "theme setting"
 private const val TAG = "SettingsRepo"
 
 @Inject
-class SettingsRepo(
-    private val dataStore: SettingsDataStore,
-    private val logger: HoloLogger,
-) { // TODO add instrumented tests for datastore usage
-    private val userFilter1ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_1_ACTIVE_KEY)
-    private val userFilter2ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_2_ACTIVE_KEY)
-    private val userFilter3ActivePreferenceKey = booleanPreferencesKey(USER_FILTER_3_ACTIVE_KEY)
-    private val syncWifiOnlyPreferenceKey = booleanPreferencesKey(SYNC_WIFI_ONLY)
+class SettingsRepo(private val dataStore: SettingsDataStore, private val logger: HoloLogger) { // TODO add instrumented tests for datastore usage
+    private val userFilter1ActivePreferenceKey = booleanPreferencesKey(
+        USER_FILTER_1_ACTIVE_KEY,
+    )
+    private val userFilter2ActivePreferenceKey = booleanPreferencesKey(
+        USER_FILTER_2_ACTIVE_KEY,
+    )
+    private val userFilter3ActivePreferenceKey = booleanPreferencesKey(
+        USER_FILTER_3_ACTIVE_KEY,
+    )
+    private val syncWifiOnlyPreferenceKey = booleanPreferencesKey(
+        SYNC_WIFI_ONLY,
+    )
     private val checkbox1DefaultTextPreferenceKey =
         stringPreferencesKey(CHECKBOX_1_DEFAULT_TEXT_KEY)
     private val checkbox2DefaultTextPreferenceKey =
         stringPreferencesKey(CHECKBOX_2_DEFAULT_TEXT_KEY)
     private val checkbox3DefaultTextPreferenceKey =
         stringPreferencesKey(CHECKBOX_3_DEFAULT_TEXT_KEY)
-    private val databaseVersionPreferenceKey = longPreferencesKey(DATABASE_VERSION_KEY)
-    private val darkModeSettingPreferenceKey = stringPreferencesKey(DARK_MODE_SETTING_KEY)
-    private val themeSettingPreferenceKey = stringPreferencesKey(THEME_SETTING_KEY)
+    private val databaseVersionPreferenceKey = longPreferencesKey(
+        DATABASE_VERSION_KEY,
+    )
+    private val darkModeSettingPreferenceKey = stringPreferencesKey(
+        DARK_MODE_SETTING_KEY,
+    )
+    private val themeSettingPreferenceKey = stringPreferencesKey(
+        THEME_SETTING_KEY,
+    )
 
     fun getSettings(): Flow<AllSettings> = dataStore.data.map { prefs ->
         AllSettings(
@@ -94,56 +105,80 @@ class SettingsRepo(
     suspend fun updateCheckbox(
         whichBox: Int,
         updateFunction: (CheckboxSetting) -> CheckboxSetting,
-    ): Result<CheckboxSetting> {
-        return runCatching {
-            val nameKey = when (whichBox) {
-                1 -> checkbox1DefaultTextPreferenceKey
-                2 -> checkbox2DefaultTextPreferenceKey
-                3 -> checkbox3DefaultTextPreferenceKey
-                else -> error("updateCheckbox called with invalid whichBox: $whichBox")
-            }
-            val activeKey = when (whichBox) {
-                1 -> userFilter1ActivePreferenceKey
-                2 -> userFilter2ActivePreferenceKey
-                3 -> userFilter3ActivePreferenceKey
-                else -> error("updateCheckbox called with invalid whichBox: $whichBox")
-            }
-            val newPrefs = dataStore.edit { prefs ->
-                val newCheckboxSetting = updateFunction(
-                    CheckboxSetting(
-                        name = prefs[nameKey] ?: getDefaultNameForCheckbox(whichBox),
-                        isInUse = prefs[activeKey] ?: true,
-                    ),
-                )
-                prefs[nameKey] = newCheckboxSetting.name
-                prefs[activeKey] = newCheckboxSetting.isInUse
-            }
-            val newName = newPrefs[nameKey]
-            val newIsInUse = newPrefs[activeKey]
-            if (newName == null || newIsInUse == null) {
-                error("couldn't get updated checkbox setting")
-            } else {
-                CheckboxSetting(newName, newIsInUse)
-            }
-        }.onFailure { throwable ->
-            when (throwable) {
-                is IOException -> logger.error(TAG, "error in updateCheckbox", throwable)
-                is IllegalArgumentException -> logger.error(
-                    TAG,
-                    "error in updateCheckbox",
-                    throwable,
-                )
+    ): Result<CheckboxSetting> = runCatching {
+        val nameKey = when (whichBox) {
+            1 -> checkbox1DefaultTextPreferenceKey
 
-                is IllegalStateException -> logger.error(TAG, "error in updateCheckbox", throwable)
-                else -> throw throwable
-            }
+            2 -> checkbox2DefaultTextPreferenceKey
+
+            3 -> checkbox3DefaultTextPreferenceKey
+
+            else -> error(
+                "updateCheckbox called with invalid whichBox: $whichBox",
+            )
+        }
+        val activeKey = when (whichBox) {
+            1 -> userFilter1ActivePreferenceKey
+
+            2 -> userFilter2ActivePreferenceKey
+
+            3 -> userFilter3ActivePreferenceKey
+
+            else -> error(
+                "updateCheckbox called with invalid whichBox: $whichBox",
+            )
+        }
+        val newPrefs = dataStore.edit { prefs ->
+            val newCheckboxSetting = updateFunction(
+                CheckboxSetting(
+                    name = prefs[nameKey] ?: getDefaultNameForCheckbox(
+                        whichBox,
+                    ),
+                    isInUse = prefs[activeKey] ?: true,
+                ),
+            )
+            prefs[nameKey] = newCheckboxSetting.name
+            prefs[activeKey] = newCheckboxSetting.isInUse
+        }
+        val newName = newPrefs[nameKey]
+        val newIsInUse = newPrefs[activeKey]
+        if (newName == null || newIsInUse == null) {
+            error("couldn't get updated checkbox setting")
+        } else {
+            CheckboxSetting(newName, newIsInUse)
+        }
+    }.onFailure { throwable ->
+        when (throwable) {
+            is IOException -> logger.error(
+                TAG,
+                "error in updateCheckbox",
+                throwable,
+            )
+
+            is IllegalArgumentException -> logger.error(
+                TAG,
+                "error in updateCheckbox",
+                throwable,
+            )
+
+            is IllegalStateException -> logger.error(
+                TAG,
+                "error in updateCheckbox",
+                throwable,
+            )
+
+            else -> throw throwable
         }
     }
 
     suspend fun updatePermanentFilter(mediaType: MediaType, isActive: Boolean) {
         try {
             dataStore.edit { prefs ->
-                prefs[booleanPreferencesKey(mediaType.getSerialName())] = isActive
+                prefs[
+                    booleanPreferencesKey(
+                        mediaType.getSerialName(),
+                    ),
+                ] = isActive
             }
         } catch (e: IOException) {
             logger.error(TAG, "error in updatePermanentFilter", e)
@@ -192,8 +227,13 @@ class SettingsRepo(
 
     private suspend fun getDefaultNameForCheckbox(whichBox: Int): String = when (whichBox) {
         1 -> getString(Res.string.settings_checkbox1_default_text)
+
         2 -> getString(Res.string.settings_checkbox2_default_text)
+
         3 -> getString(Res.string.settings_checkbox3_default_text)
-        else -> error("attempting to get name for checkbox that isn't 1, 2, or 3")
+
+        else -> error(
+            "attempting to get name for checkbox that isn't 1, 2, or 3",
+        )
     }
 }

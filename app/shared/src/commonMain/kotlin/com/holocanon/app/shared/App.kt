@@ -13,7 +13,6 @@ import com.holocanon.feature.main.screen.internal.TopLevelScreen
 import com.holocanon.library.navigation.AppBarConfig
 import compose.theme.HolocanonTheme
 import compose.theme.collectAsStateSafely
-import setImageLoader
 import settings.model.DarkModeSetting
 import settings.model.Theme
 

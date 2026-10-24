@@ -24,18 +24,24 @@ actual fun prepareFilePicker(
 ): SelectFileLauncher {
     val context = LocalContext.current
     val launcher =
-        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        rememberLauncherForActivityResult(
+            ActivityResultContracts.StartActivityForResult(),
+        ) { result ->
             if (result.resultCode == RESULT_OK) {
                 val dataUri = result.data?.data
                 if (dataUri != null) {
                     try {
                         when (pickerArgs) {
                             is PickerArgs.Get -> {
-                                val inputStream = context.contentResolver?.openInputStream(dataUri)
+                                val inputStream = context.contentResolver?.openInputStream(
+                                    dataUri,
+                                )
                                 if (inputStream != null) {
                                     pickerArgs.onResult(inputStream.asSource())
                                 } else {
-                                    val throwable = IllegalStateException("null inputStream")
+                                    val throwable = IllegalStateException(
+                                        "null inputStream",
+                                    )
                                     Log.e(
                                         TAG,
                                         "inputStream not found when getting file",
@@ -47,11 +53,15 @@ actual fun prepareFilePicker(
 
                             is PickerArgs.Save -> {
                                 val outputStream =
-                                    context.contentResolver?.openOutputStream(dataUri)
+                                    context.contentResolver?.openOutputStream(
+                                        dataUri,
+                                    )
                                 if (outputStream != null) {
                                     pickerArgs.onResult(outputStream.asSink())
                                 } else {
-                                    val throwable = IllegalStateException("null outputStream")
+                                    val throwable = IllegalStateException(
+                                        "null outputStream",
+                                    )
                                     Log.e(
                                         TAG,
                                         "outputStream not found when saving file",

@@ -23,7 +23,10 @@ import org.jetbrains.compose.resources.painterResource
 private const val ROTATION_DURATION = 2000
 
 @Composable
-fun LoadingScreen() = Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+fun LoadingScreen() = Box(
+    modifier = Modifier.fillMaxSize(),
+    contentAlignment = Alignment.Center,
+) {
     val infiniteTransition = rememberInfiniteTransition()
     val rotation by infiniteTransition.animateFloat(
         initialValue = 0f,
@@ -43,9 +46,7 @@ fun LoadingScreen() = Box(modifier = Modifier.fillMaxSize(), contentAlignment = 
 }
 
 @Composable
-fun <T> Flow<T>.withStateOrLoadingScreen(
-    withState: @Composable (T) -> Unit,
-) {
+fun <T> Flow<T>.withStateOrLoadingScreen(withState: @Composable (T) -> Unit) {
     val state by collectAsStateSafely(null)
     state?.also { withState(it) } ?: LoadingScreen()
 }

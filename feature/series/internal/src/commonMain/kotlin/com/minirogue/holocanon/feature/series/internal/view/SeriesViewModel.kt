@@ -65,15 +65,33 @@ internal class SeriesViewModel(
                 .onEach { series -> _state.update { it.copy(series = series) } }
                 .launchIn(viewModelScope)
             getMediaAndNotesForSeries(seriesId)
-                .onEach { mediaAndNotes -> _state.update { it.copy(mediaAndNotes = mediaAndNotes) } }
+                .onEach { mediaAndNotes ->
+                    _state.update {
+                        it.copy(
+                            mediaAndNotes = mediaAndNotes,
+                        )
+                    }
+                }
                 .launchIn(viewModelScope)
         }
 
         isNetworkAllowed()
-            .onEach { shouldAllowNetwork -> _state.update { it.copy(isNetworkAllowed = shouldAllowNetwork) } }
+            .onEach { shouldAllowNetwork ->
+                _state.update {
+                    it.copy(
+                        isNetworkAllowed = shouldAllowNetwork,
+                    )
+                }
+            }
             .launchIn(viewModelScope)
         getCheckboxSettings()
-            .onEach { checkboxSettings -> _state.update { it.copy(checkboxSettings = checkboxSettings) } }
+            .onEach { checkboxSettings ->
+                _state.update {
+                    it.copy(
+                        checkboxSettings = checkboxSettings,
+                    )
+                }
+            }
             .launchIn(viewModelScope)
     }
 

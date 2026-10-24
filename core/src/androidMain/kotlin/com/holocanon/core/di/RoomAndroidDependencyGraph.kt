@@ -42,7 +42,9 @@ interface RoomAndroidDependencyGraph {
         internal val MIGRATE_16_17: Migration = object : Migration(16, 17) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Add publisher column to media_items
-                db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'publisher' INTEGER NOT NULL DEFAULT 0")
+                db.execSQL(
+                    "ALTER TABLE 'media_items' ADD COLUMN 'publisher' INTEGER NOT NULL DEFAULT 0",
+                )
                 // Create companies table
                 db.execSQL(
                     "CREATE TABLE IF NOT EXISTS `companies` (`id` INTEGER NOT NULL, `company_name` TEXT NOT NULL, PRIMARY KEY(`id`))",
@@ -67,21 +69,31 @@ interface RoomAndroidDependencyGraph {
                 )
                 db.execSQL("DROP TABLE media_items")
                 db.execSQL("ALTER TABLE temp_table RENAME TO media_items")
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_media_items_type` ON `media_items` (`type`)")
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_media_items_series` ON `media_items` (`series`)")
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_media_items_type` ON `media_items` (`type`)",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_media_items_series` ON `media_items` (`series`)",
+                )
             }
         }
 
         internal val MIGRATE_15_16: Migration = object : Migration(15, 16) {
             override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("ALTER TABLE 'filter_type' ADD COLUMN 'text' TEXT NOT NULL DEFAULT ''")
+                db.execSQL(
+                    "ALTER TABLE 'filter_type' ADD COLUMN 'text' TEXT NOT NULL DEFAULT ''",
+                )
             }
         }
 
         internal val MIGRATE_14_15: Migration = object : Migration(14, 15) {
             override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_media_items_type` ON `media_items` (`type`)")
-                db.execSQL("CREATE INDEX IF NOT EXISTS `index_media_items_series` ON `media_items` (`series`)")
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_media_items_type` ON `media_items` (`type`)",
+                )
+                db.execSQL(
+                    "CREATE INDEX IF NOT EXISTS `index_media_items_series` ON `media_items` (`series`)",
+                )
                 // migrate primarykey of filter_object
                 db.execSQL(
                     "CREATE TABLE IF NOT EXISTS `temp_table` (`filter_id` INTEGER NOT NULL, `type_id` INTEGER NOT NULL, `is_active` INTEGER NOT NULL, `filter_text` TEXT, PRIMARY KEY(`filter_id`, `type_id`), FOREIGN KEY(`type_id`) REFERENCES `filter_type`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
@@ -121,35 +133,49 @@ interface RoomAndroidDependencyGraph {
                 db.execSQL(
                     "CREATE TABLE IF NOT EXISTS 'series'('id' INTEGER NOT NULL, 'title' TEXT NOT NULL, 'description' TEXT NOT NULL, 'image' TEXT NOT NULL, PRIMARY KEY('id'))",
                 )
-                db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'series' INTEGER NOT NULL DEFAULT -1")
+                db.execSQL(
+                    "ALTER TABLE 'media_items' ADD COLUMN 'series' INTEGER NOT NULL DEFAULT -1",
+                )
             }
         }
 
         internal val MIGRATE_11_12: Migration = object : Migration(11, 12) {
             override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'review' TEXT DEFAULT ''")
+                db.execSQL(
+                    "ALTER TABLE 'media_items' ADD COLUMN 'review' TEXT DEFAULT ''",
+                )
             }
         }
 
         internal val MIGRATE_10_11: Migration = object : Migration(10, 11) {
             override fun migrate(db: SupportSQLiteDatabase) {
-                db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'amazon_link' TEXT DEFAULT ''")
-                db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'amazon_stream' TEXT DEFAULT ''")
+                db.execSQL(
+                    "ALTER TABLE 'media_items' ADD COLUMN 'amazon_link' TEXT DEFAULT ''",
+                )
+                db.execSQL(
+                    "ALTER TABLE 'media_items' ADD COLUMN 'amazon_stream' TEXT DEFAULT ''",
+                )
             }
         }
 
         internal val MIGRATE_8_9: Migration = object : Migration(8, 9) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Example of adding a new column to a table. Make sure it matches the schema column
-                db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'image' TEXT DEFAULT ''")
+                db.execSQL(
+                    "ALTER TABLE 'media_items' ADD COLUMN 'image' TEXT DEFAULT ''",
+                )
             }
         }
 
         internal val MIGRATE_9_10: Migration = object : Migration(9, 10) {
             override fun migrate(db: SupportSQLiteDatabase) {
                 // Example of adding a new column to a table. Make sure it matches the schema column
-                db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'date' TEXT DEFAULT ''")
-                db.execSQL("ALTER TABLE 'media_items' ADD COLUMN 'timeline' REAL NOT NULL DEFAULT 10000")
+                db.execSQL(
+                    "ALTER TABLE 'media_items' ADD COLUMN 'date' TEXT DEFAULT ''",
+                )
+                db.execSQL(
+                    "ALTER TABLE 'media_items' ADD COLUMN 'timeline' REAL NOT NULL DEFAULT 10000",
+                )
             }
         }
     }

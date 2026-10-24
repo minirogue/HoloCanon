@@ -56,7 +56,11 @@ internal fun CheckboxFilterSubMenu(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Row(modifier = Modifier.padding(8.dp)) {
-                Text(text = stringResource(Res.string.select_filters_user_defined))
+                Text(
+                    text = stringResource(
+                        Res.string.select_filters_user_defined,
+                    ),
+                )
                 Icon(
                     modifier = Modifier.rotate(dropDownArrowRotation.value),
                     imageVector = Icons.Default.ArrowDropDown,

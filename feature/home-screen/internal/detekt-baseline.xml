@@ -1,7 +1,5 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
   <ManuallySuppressedIssues/>
-  <CurrentIssues>
-    <ID>MagicNumber:HomeScreen.kt$0xff64B5F6</ID>
-  </CurrentIssues>
+  <CurrentIssues/>
 </SmellBaseline>

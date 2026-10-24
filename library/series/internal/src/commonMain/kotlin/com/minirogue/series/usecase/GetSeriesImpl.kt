@@ -11,7 +11,9 @@ import kotlinx.coroutines.flow.map
 @Inject
 @ContributesBinding(AppScope::class)
 class GetSeriesImpl(private val daoSeries: DaoSeries) : GetSeries {
-    override fun invoke(seriesId: Int): Flow<Series> = daoSeries.getSeriesFlow(seriesId)
+    override fun invoke(seriesId: Int): Flow<Series> = daoSeries.getSeriesFlow(
+        seriesId,
+    )
         .map { it.toSeries() }
 
     private fun SeriesDto.toSeries(): Series = Series(

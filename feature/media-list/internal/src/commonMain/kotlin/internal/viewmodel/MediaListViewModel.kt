@@ -55,7 +55,9 @@ internal class MediaListViewModel(
         val searchTerm: String? = null,
     )
 
-    private val backingState: MutableStateFlow<BackingState> = MutableStateFlow(BackingState())
+    private val backingState: MutableStateFlow<BackingState> = MutableStateFlow(
+        BackingState(),
+    )
 
     val state: Flow<MediaListState> = combine(
         backingState,
@@ -77,7 +79,15 @@ internal class MediaListViewModel(
 
     // TODO benchmark and compare with possible @Immutable usage
     val mediaList: Flow<List<MediaAndNotes>> = getMediaListWithNotes()
-        .combine(state) { list, state -> performSort(list, state.sortStyle, state.searchTerm) }
+        .combine(
+            state,
+        ) { list, state ->
+            performSort(
+                list,
+                state.sortStyle,
+                state.searchTerm,
+            )
+        }
 
     fun updateSearch(searchTerm: String) {
         backingState.update { it.copy(searchTerm = searchTerm) }
@@ -89,7 +99,12 @@ internal class MediaListViewModel(
     }
 
     fun onScroll(index: Int, offset: Int) {
-        backingState.update { it.copy(scrollPosition = index, scrollOffset = offset) }
+        backingState.update {
+            it.copy(
+                scrollPosition = index,
+                scrollOffset = offset,
+            )
+        }
     }
 
     private suspend fun performSort(
@@ -100,7 +115,10 @@ internal class MediaListViewModel(
         if (!searchTerm.isNullOrBlank()) {
             list.filter {
                 it.mediaItem.title.contains(searchTerm, true) ||
-                    it.mediaItem.description?.contains(searchTerm, true) == true ||
+                    it.mediaItem.description?.contains(
+                        searchTerm,
+                        true,
+                    ) == true ||
                     it.mediaItem.series?.contains(searchTerm, true) == true
             }
         } else {

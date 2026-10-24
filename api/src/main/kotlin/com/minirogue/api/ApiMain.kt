@@ -23,12 +23,18 @@ internal fun main() {
 }
 
 private suspend fun createVersionNumber(version: Int) {
-    JsonWriter.write(holocanonJson.encodeToString(version), API_ROOT_DIRECTORY + "version.json")
+    JsonWriter.write(
+        holocanonJson.encodeToString(version),
+        API_ROOT_DIRECTORY + "version.json",
+    )
 }
 
 private suspend fun createMediaResponses() {
     val allMedia = getFullMediaList()
-    JsonWriter.write(holocanonJson.encodeToString(allMedia), API_ROOT_DIRECTORY + "media.json")
+    JsonWriter.write(
+        holocanonJson.encodeToString(allMedia),
+        API_ROOT_DIRECTORY + "media.json",
+    )
     allMedia.forEach { starWarsMedia ->
         JsonWriter.write(
             holocanonJson.encodeToString(starWarsMedia),

@@ -6,7 +6,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 
 class FakeGetNotesForMedia : GetNotesForMedia {
-    private val returnFlow = MutableSharedFlow<MediaNotes>(replay = Int.MAX_VALUE)
+    private val returnFlow = MutableSharedFlow<MediaNotes>(
+        replay = Int.MAX_VALUE,
+    )
 
     suspend fun emit(notes: MediaNotes) {
         returnFlow.emit(notes)
