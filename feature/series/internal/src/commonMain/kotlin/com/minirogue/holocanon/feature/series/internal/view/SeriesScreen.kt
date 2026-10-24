@@ -31,7 +31,11 @@ internal fun SeriesScreen(
     viewModelFactory: SeriesViewModel.Factory,
     seriesName: String,
     navController: NavController,
-    viewModel: SeriesViewModel = viewModel { viewModelFactory.create(seriesName) },
+    viewModel: SeriesViewModel = viewModel {
+        viewModelFactory.create(
+            seriesName,
+        )
+    },
 ) {
     val state by viewModel.state.collectAsStateSafely()
 
@@ -85,7 +89,11 @@ private fun SeriesList(
     LazyColumn(modifier = modifier) {
         items(media) {
             Text(
-                modifier = Modifier.clickable { onItemClicked(it.mediaItem.id) },
+                modifier = Modifier.clickable {
+                    onItemClicked(
+                        it.mediaItem.id,
+                    )
+                },
                 text = it.mediaItem.title,
             )
         }
@@ -126,14 +134,13 @@ private fun CheckboxGroup(
 }
 
 @Composable
-private fun TextAndCheckbox(text: String, isBoxChecked: Boolean, onClick: () -> Unit) =
-    Row(
-        Modifier
-            .fillMaxWidth()
-            .clickable { onClick() }
-            .padding(8.dp),
-        horizontalArrangement = Arrangement.End,
-    ) {
-        Text(text = text, modifier = Modifier.padding(end = 8.dp))
-        Checkbox(checked = isBoxChecked, onCheckedChange = null)
-    }
+private fun TextAndCheckbox(text: String, isBoxChecked: Boolean, onClick: () -> Unit) = Row(
+    Modifier
+        .fillMaxWidth()
+        .clickable { onClick() }
+        .padding(8.dp),
+    horizontalArrangement = Arrangement.End,
+) {
+    Text(text = text, modifier = Modifier.padding(end = 8.dp))
+    Checkbox(checked = isBoxChecked, onCheckedChange = null)
+}

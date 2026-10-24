@@ -33,19 +33,47 @@ class GetAllFilterGroupsImplTest {
             setGetAllFilterTypes(
                 flowOf(
                     listOf(
-                        FilterTypeDto(FilterTypeDto.FILTERCOLUMN_TYPE, true, "Media Type"),
-                        FilterTypeDto(FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE, false, "Checkbox 1"),
-                        FilterTypeDto(FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO, true, "Checkbox 2"),
-                        FilterTypeDto(FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE, false, "Checkbox 3"),
-                        FilterTypeDto(FilterTypeDto.FILTERCOLUMN_SERIES, false, "Series"),
-                        FilterTypeDto(FilterTypeDto.FILTERCOLUMN_PUBLISHER, true, "Publisher"),
+                        FilterTypeDto(
+                            FilterTypeDto.FILTERCOLUMN_TYPE,
+                            true,
+                            "Media Type",
+                        ),
+                        FilterTypeDto(
+                            FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE,
+                            false,
+                            "Checkbox 1",
+                        ),
+                        FilterTypeDto(
+                            FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO,
+                            true,
+                            "Checkbox 2",
+                        ),
+                        FilterTypeDto(
+                            FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE,
+                            false,
+                            "Checkbox 3",
+                        ),
+                        FilterTypeDto(
+                            FilterTypeDto.FILTERCOLUMN_SERIES,
+                            false,
+                            "Series",
+                        ),
+                        FilterTypeDto(
+                            FilterTypeDto.FILTERCOLUMN_PUBLISHER,
+                            true,
+                            "Publisher",
+                        ),
                     ),
                 ),
             )
         }
         getPermanentFilters = FakeGetPermanentFilters()
         getCheckboxSettings = FakeGetCheckboxSettings()
-        getAllFilterGroups = GetAllFilterGroupsImpl(daoFilter, getPermanentFilters, getCheckboxSettings)
+        getAllFilterGroups = GetAllFilterGroupsImpl(
+            daoFilter,
+            getPermanentFilters,
+            getCheckboxSettings,
+        )
     }
 
     @Test
@@ -74,15 +102,29 @@ class GetAllFilterGroupsImplTest {
         daoFilter.setAllFilters(
             flowOf(
                 listOf(
-                    fullFilter(id = 1, name = "Book", filterType = FilterType.MediaType),
-                    fullFilter(id = 2, name = "Comic", filterType = FilterType.MediaType),
+                    fullFilter(
+                        id = 1,
+                        name = "Book",
+                        filterType = FilterType.MediaType,
+                    ),
+                    fullFilter(
+                        id = 2,
+                        name = "Comic",
+                        filterType = FilterType.MediaType,
+                    ),
                 ),
             ),
         )
         getPermanentFilters.setPermanentFilters(
             flowOf(
                 listOf(
-                    MediaFilter(1, "Book", FilterType.MediaType, isPositive = true, isActive = true),
+                    MediaFilter(
+                        1,
+                        "Book",
+                        FilterType.MediaType,
+                        isPositive = true,
+                        isActive = true,
+                    ),
                 ),
             ),
         )
@@ -92,11 +134,23 @@ class GetAllFilterGroupsImplTest {
         val result = getAllFilterGroups().first()
 
         // Assert
-        val mediaFilters = result[FilterGroup(FilterType.MediaType, true, "Media Type")]
+        val mediaFilters = result[
+            FilterGroup(
+                FilterType.MediaType,
+                true,
+                "Media Type",
+            ),
+        ]
         assertNotNull(mediaFilters)
         assertEquals(
             listOf(
-                MediaFilter(2, "Comic", FilterType.MediaType, isPositive = true, isActive = true),
+                MediaFilter(
+                    2,
+                    "Comic",
+                    FilterType.MediaType,
+                    isPositive = true,
+                    isActive = true,
+                ),
             ),
             mediaFilters,
         )
@@ -108,8 +162,16 @@ class GetAllFilterGroupsImplTest {
         daoFilter.setAllFilters(
             flowOf(
                 listOf(
-                    fullFilter(id = 1, name = "Book", filterType = FilterType.MediaType),
-                    fullFilter(id = 2, name = "Series A", filterType = FilterType.Series),
+                    fullFilter(
+                        id = 1,
+                        name = "Book",
+                        filterType = FilterType.MediaType,
+                    ),
+                    fullFilter(
+                        id = 2,
+                        name = "Series A",
+                        filterType = FilterType.Series,
+                    ),
                 ),
             ),
         )
@@ -120,17 +182,43 @@ class GetAllFilterGroupsImplTest {
         val result = getAllFilterGroups().first()
 
         // Assert
-        val mediaFilters = result[FilterGroup(FilterType.MediaType, true, "Media Type")]
-        val seriesFilters = result[FilterGroup(FilterType.Series, false, "Series")]
+        val mediaFilters = result[
+            FilterGroup(
+                FilterType.MediaType,
+                true,
+                "Media Type",
+            ),
+        ]
+        val seriesFilters = result[
+            FilterGroup(
+                FilterType.Series,
+                false,
+                "Series",
+            ),
+        ]
         assertNotNull(mediaFilters)
         assertNotNull(seriesFilters)
         assertEquals(
-            listOf(MediaFilter(1, "Book", FilterType.MediaType, isPositive = true, isActive = true)),
+            listOf(
+                MediaFilter(
+                    1,
+                    "Book",
+                    FilterType.MediaType,
+                    isPositive = true,
+                    isActive = true,
+                ),
+            ),
             mediaFilters,
         )
         assertEquals(
             listOf(
-                MediaFilter(2, "Series A", FilterType.Series, isPositive = true, isActive = true),
+                MediaFilter(
+                    2,
+                    "Series A",
+                    FilterType.Series,
+                    isPositive = true,
+                    isActive = true,
+                ),
             ),
             seriesFilters,
         )

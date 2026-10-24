@@ -52,10 +52,11 @@ enum class MediaType(val legacyId: Int) {
     ;
 
     @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
-    fun getSerialName() = MediaType.serializer().descriptor.getElementName(ordinal)
+    fun getSerialName() = MediaType.serializer().descriptor.getElementName(
+        ordinal,
+    )
 
     companion object {
-        fun getFromLegacyId(legacyId: Int): MediaType =
-            entries.firstOrNull { it.legacyId == legacyId } ?: UNKNOWN
+        fun getFromLegacyId(legacyId: Int): MediaType = entries.firstOrNull { it.legacyId == legacyId } ?: UNKNOWN
     }
 }

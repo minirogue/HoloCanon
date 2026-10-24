@@ -75,7 +75,10 @@ private val filterTypes = MutableStateFlow(
     },
 )
 
-internal fun getFakeFilters() = combine(fakeFilters, filterTypes) { filters, filterTypes ->
+internal fun getFakeFilters() = combine(
+    fakeFilters,
+    filterTypes,
+) { filters, filterTypes ->
     filters.map { filter ->
         filter.copy(
             isPositive = filterTypes.find { it.type == filter.filterType }?.isFilterPositive
@@ -87,7 +90,10 @@ internal fun getFakeFilters() = combine(fakeFilters, filterTypes) { filters, fil
 internal fun updateFakeFilters(updateFunction: (List<MediaFilter>) -> List<MediaFilter>) =
     fakeFilters.update { updateFunction(it) }
 
-internal fun getFakeFilterGroups() = combine(filterTypes, getFakeFilters()) { filterTypes, filters ->
+internal fun getFakeFilterGroups() = combine(
+    filterTypes,
+    getFakeFilters(),
+) { filterTypes, filters ->
     filterTypes.associateWith { filterGroup ->
         filters.filter { filterGroup.type == it.filterType }
     }

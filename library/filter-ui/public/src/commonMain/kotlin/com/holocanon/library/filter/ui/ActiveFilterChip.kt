@@ -1,3 +1,5 @@
+package com.holocanon.library.filter.ui
+
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.Close
@@ -33,7 +35,9 @@ fun ActiveFilterChip(modifier: Modifier = Modifier, filter: MediaFilter, onDismi
         trailingIcon = {
             Icon(
                 Icons.Default.Close,
-                contentDescription = stringResource(Res.string.filter_ui_dismiss_filter),
+                contentDescription = stringResource(
+                    Res.string.filter_ui_dismiss_filter,
+                ),
             )
         },
     )

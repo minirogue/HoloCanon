@@ -36,7 +36,11 @@ internal class TestEntryActivity : AppCompatActivity() {
         setContent {
             HolocanonTheme(DarkModeSetting.SYSTEM, Theme.Force) {
                 val navController = rememberNavController()
-                val appBarConfig = remember { mutableStateOf(AppBarConfig.DEFAULT) }
+                val appBarConfig = remember {
+                    mutableStateOf(
+                        AppBarConfig.DEFAULT,
+                    )
+                }
                 Scaffold(
                     topBar = { TestAppBar(appBarConfig.value) },
                 ) { padding ->
@@ -73,17 +77,24 @@ private fun TestAppBar(appBarConfig: AppBarConfig) = CenterAlignedTopAppBar(
 )
 
 @Composable
-private fun TestAppEntryScreen(
-    modifier: Modifier = Modifier,
-    navController: NavController,
-) = Column(
+private fun TestAppEntryScreen(modifier: Modifier = Modifier, navController: NavController) = Column(
     modifier = modifier.fillMaxSize(),
 ) {
     navController.graph
         .filter { it.route?.contains(TestAppEntryNav.toString()) != true }
         .forEach { navDestination ->
-            Button(onClick = { navController.navigate(navDestination.route ?: "no route") }) {
-                Text(navDestination.route?.split(".")?.last() ?: "route not found")
+            Button(
+                onClick = {
+                    navController.navigate(
+                        navDestination.route ?: "no route",
+                    )
+                },
+            ) {
+                Text(
+                    navDestination.route?.split(
+                        ".",
+                    )?.last() ?: "route not found",
+                )
             }
         }
 }

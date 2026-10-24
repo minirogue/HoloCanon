@@ -15,16 +15,19 @@ import internal.viewmodel.MediaListViewModel
 
 @Inject
 @ContributesIntoSet(AppScope::class)
-class MediaListNavContributor internal constructor(
-    private val viewModelProvider: Provider<MediaListViewModel>,
-) : NavContributor() {
+class MediaListNavContributor internal constructor(private val viewModelProvider: Provider<MediaListViewModel>) :
+    NavContributor() {
     override fun invoke(
         navGraphBuilder: NavGraphBuilder,
         navController: NavController,
         setAppBar: (AppBarConfig) -> Unit,
     ) = with(navGraphBuilder) {
         composable<MediaListNav> {
-            MediaListScreen(viewModelProvider = viewModelProvider, navController = navController, setAppBar = setAppBar)
+            MediaListScreen(
+                viewModelProvider = viewModelProvider,
+                navController = navController,
+                setAppBar = setAppBar,
+            )
         }
     }
 }

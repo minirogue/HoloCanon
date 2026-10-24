@@ -43,7 +43,9 @@ fun HomeScreen() {
     ) {
         Image(
             painter = painterResource(Res.drawable.home_screen_app_icon),
-            contentDescription = stringResource(Res.string.home_screen_app_icon_description),
+            contentDescription = stringResource(
+                Res.string.home_screen_app_icon_description,
+            ),
             modifier = Modifier
                 .align(Alignment.CenterHorizontally)
                 .padding(vertical = 8.dp),
@@ -51,7 +53,9 @@ fun HomeScreen() {
         val welcomeString = getWelcomeString()
         Text(
             text = welcomeString,
-            style = TextStyle.Default.copy(color = MaterialTheme.colorScheme.onSurface),
+            style = TextStyle.Default.copy(
+                color = MaterialTheme.colorScheme.onSurface,
+            ),
         )
         Text(
             text = stringResource(Res.string.home_screen_copyright_notice),
@@ -67,7 +71,10 @@ fun HomeScreen() {
 @Composable
 fun getWelcomeString(): AnnotatedString = buildAnnotatedString {
     val discordString = stringResource(Res.string.home_screen_discord)
-    val fullString = stringResource(Res.string.home_screen_welcome_message, discordString).trimMargin()
+    val fullString = stringResource(
+        Res.string.home_screen_welcome_message,
+        discordString,
+    ).trimMargin()
     val startIndex = fullString.indexOf(discordString)
     val endIndex = startIndex + discordString.length
     append(fullString)
@@ -79,5 +86,9 @@ fun getWelcomeString(): AnnotatedString = buildAnnotatedString {
         start = startIndex,
         end = endIndex,
     )
-    addLink(LinkAnnotation.Url("https://discord.gg/RxXvTfX"), startIndex, endIndex)
+    addLink(
+        LinkAnnotation.Url("https://discord.gg/RxXvTfX"),
+        startIndex,
+        endIndex,
+    )
 }

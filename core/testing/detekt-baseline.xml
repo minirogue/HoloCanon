@@ -2,6 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>TooManyFunctions:FakeDaoFilter.kt$FakeDaoFilter : DaoFilter</ID>
+    <ID>TooManyFunctions:FakeDaoFilter.kt:FakeDaoFilter : DaoFilter</ID>
   </CurrentIssues>
 </SmellBaseline>

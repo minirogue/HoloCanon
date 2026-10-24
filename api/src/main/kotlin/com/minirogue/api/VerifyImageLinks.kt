@@ -15,11 +15,19 @@ object VerifyImageLinks {
 
         val invalidImageLinks = imageAddresses.map { idToUrlEntry ->
             coroutineScope {
-                async { idToUrlEntry.key to idToUrlEntry.value?.let { httpClient.get(it) } }
+                async {
+                    idToUrlEntry.key to idToUrlEntry.value?.let {
+                        httpClient.get(
+                            it,
+                        )
+                    }
+                }
             }
         }.mapNotNull {
             if (it.await().second?.status?.value != 200) it.await().first else null
         }
-        error("The following entries have missing images (either no link or dead link): $invalidImageLinks")
+        error(
+            "The following entries have missing images (either no link or dead link): $invalidImageLinks",
+        )
     }
 }

@@ -22,8 +22,16 @@ import com.holocanon.core.data.entity.MediaNotesDto
     version = SCHEMA_VERSION,
     autoMigrations = [
         AutoMigration(from = 17, to = 18),
-        AutoMigration(from = 18, to = 19, spec = MediaDatabase.AutoMigration18To19::class),
-        AutoMigration(from = 19, to = 20, spec = MediaDatabase.AutoMigration19To20::class),
+        AutoMigration(
+            from = 18,
+            to = 19,
+            spec = MediaDatabase.AutoMigration18To19::class,
+        ),
+        AutoMigration(
+            from = 19,
+            to = 20,
+            spec = MediaDatabase.AutoMigration19To20::class,
+        ),
     ],
     exportSchema = true,
 )
