@@ -92,7 +92,12 @@ internal fun SettingsScreen(
                 viewModel::flipIsCheckboxActive,
             )
         }
-        state.permanentFilters?.let { IncludedMediaTypes(it, viewModel::setPermanentFilterActive) }
+        state.permanentFilters?.let {
+            IncludedMediaTypes(
+                it,
+                viewModel::setPermanentFilterActive,
+            )
+        }
         state.wifiOnly?.let {
             DatabaseSyncSettings(
                 wifiOnly = it,
@@ -167,9 +172,17 @@ private fun ThemeSettings(currentTheme: Theme, updateTheme: (Theme) -> Unit) = C
                     text = {
                         Text(
                             when (theme) {
-                                Theme.Force -> stringResource(Res.string.settings_force_theme)
-                                Theme.Mace -> stringResource(Res.string.settings_mace_theme)
-                                Theme.AndroidDynamic -> stringResource(Res.string.settings_dynamic_theme)
+                                Theme.Force -> stringResource(
+                                    Res.string.settings_force_theme,
+                                )
+
+                                Theme.Mace -> stringResource(
+                                    Res.string.settings_mace_theme,
+                                )
+
+                                Theme.AndroidDynamic -> stringResource(
+                                    Res.string.settings_dynamic_theme,
+                                )
                             },
                         )
                     },
@@ -196,9 +209,17 @@ private fun DarkModeSettings(
                 text = {
                     Text(
                         when (darkModeSetting) {
-                            DarkModeSetting.SYSTEM -> stringResource(Res.string.settings_system_dark_mode)
-                            DarkModeSetting.LIGHT -> stringResource(Res.string.settings_light_mode)
-                            DarkModeSetting.DARK -> stringResource(Res.string.settings_dark_mode)
+                            DarkModeSetting.SYSTEM -> stringResource(
+                                Res.string.settings_system_dark_mode,
+                            )
+
+                            DarkModeSetting.LIGHT -> stringResource(
+                                Res.string.settings_light_mode,
+                            )
+
+                            DarkModeSetting.DARK -> stringResource(
+                                Res.string.settings_dark_mode,
+                            )
                         },
                     )
                 },
@@ -227,7 +248,10 @@ private fun UserDefinedFilter(
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(8.dp),
         )
-        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
+        HorizontalDivider(
+            thickness = 2.dp,
+            color = MaterialTheme.colorScheme.secondary,
+        )
         if (checkboxSetting.isInUse) {
             Row(
                 modifier = Modifier
@@ -317,9 +341,16 @@ private fun IncludedMediaTypes(
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(8.dp),
         )
-        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
+        HorizontalDivider(
+            thickness = 2.dp,
+            color = MaterialTheme.colorScheme.secondary,
+        )
         MediaType.entries.forEach {
-            MediaTypePermanentFilter(it, permanentFilters[it] ?: true, setPermanentFilterActive)
+            MediaTypePermanentFilter(
+                it,
+                permanentFilters[it] ?: true,
+                setPermanentFilterActive,
+            )
         }
     }
 }
@@ -354,7 +385,10 @@ private fun DatabaseSyncSettings(wifiOnly: Boolean, toggleWifiSetting: (Boolean)
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(8.dp),
         )
-        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
+        HorizontalDivider(
+            thickness = 2.dp,
+            color = MaterialTheme.colorScheme.secondary,
+        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -395,8 +429,12 @@ private fun ExportMediaNotes(
     importMediaNotes: (RawSource) -> Unit,
     onError: (String) -> Unit,
 ) {
-    val importExceptionString = stringResource(Res.string.settings_import_failed)
-    val exportExceptionString = stringResource(Res.string.settings_export_failed)
+    val importExceptionString = stringResource(
+        Res.string.settings_import_failed,
+    )
+    val exportExceptionString = stringResource(
+        Res.string.settings_export_failed,
+    )
     val importLauncher = prepareFilePicker(
         pickerArgs = PickerArgs.Get(FileType.JSON, importMediaNotes),
         onError = { onError(importExceptionString) },
@@ -418,7 +456,10 @@ private fun ExportMediaNotes(
             style = MaterialTheme.typography.titleMedium,
             modifier = Modifier.padding(8.dp),
         )
-        HorizontalDivider(thickness = 2.dp, color = MaterialTheme.colorScheme.secondary)
+        HorizontalDivider(
+            thickness = 2.dp,
+            color = MaterialTheme.colorScheme.secondary,
+        )
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -427,7 +468,9 @@ private fun ExportMediaNotes(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = stringResource(Res.string.settings_export_user_data_as_json),
+                text = stringResource(
+                    Res.string.settings_export_user_data_as_json,
+                ),
                 modifier = Modifier.padding(8.dp),
             )
         }
@@ -439,7 +482,9 @@ private fun ExportMediaNotes(
             verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(
-                text = stringResource(Res.string.settings_import_user_data_from_json),
+                text = stringResource(
+                    Res.string.settings_import_user_data_from_json,
+                ),
                 modifier = Modifier.padding(8.dp),
             )
         }

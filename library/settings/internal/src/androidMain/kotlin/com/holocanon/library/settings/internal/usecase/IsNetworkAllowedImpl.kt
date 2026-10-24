@@ -26,7 +26,9 @@ class IsNetworkAllowedImpl(private val connMgr: ConnectivityManager, shouldSyncV
             override fun onCapabilitiesChanged(network: Network, networkCapabilities: NetworkCapabilities) {
                 super.onCapabilitiesChanged(network, networkCapabilities)
                 val unmetered =
-                    networkCapabilities.hasCapability(NetworkCapabilities.NET_CAPABILITY_NOT_METERED)
+                    networkCapabilities.hasCapability(
+                        NetworkCapabilities.NET_CAPABILITY_NOT_METERED,
+                    )
                 trySend(unmetered)
             }
         }

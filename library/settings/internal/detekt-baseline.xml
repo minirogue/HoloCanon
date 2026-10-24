@@ -2,7 +2,8 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>CyclomaticComplexMethod:SettingsRepo.kt$SettingsRepo$suspend fun updateCheckbox( whichBox: Int, updateFunction: (CheckboxSetting) -&gt; CheckboxSetting, ): Result&lt;CheckboxSetting&gt;</ID>
-    <ID>MagicNumber:SettingsRepo.kt$SettingsRepo$3</ID>
+    <ID>CyclomaticComplexMethod:SettingsRepo.kt:SettingsRepo$suspend fun updateCheckbox: Result&lt;CheckboxSetting&gt;</ID>
+    <ID>MagicNumber:SettingsRepo.kt:SettingsRepo$3</ID>
+    <ID>MaximumLineLength:SettingsRepo.kt:SettingsRepo$// TODO add instrumented tests for datastore usage</ID>
   </CurrentIssues>
 </SmellBaseline>

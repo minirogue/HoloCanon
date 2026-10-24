@@ -57,7 +57,11 @@ class SettingsViewModel(
     importExportFeatureFlag: ImportExportFeatureFlag,
 ) : ViewModel() {
     private val _state =
-        MutableStateFlow(SettingsState(isImportExportAvailable = importExportFeatureFlag.isAvailable()))
+        MutableStateFlow(
+            SettingsState(
+                isImportExportAvailable = importExportFeatureFlag.isAvailable(),
+            ),
+        )
     val state: StateFlow<SettingsState> = _state
 
     init {
@@ -109,7 +113,11 @@ class SettingsViewModel(
         updateWifiSetting(newValue)
     }
 
-    fun syncDatabase() = viewModelScope.launch { maybeUpdateMediaDatabase(true) }
+    fun syncDatabase() = viewModelScope.launch {
+        maybeUpdateMediaDatabase(
+            true,
+        )
+    }
 
     fun importMediaNotes(inputStream: RawSource) = viewModelScope.launch {
         importMediaNotesJson(inputStream)

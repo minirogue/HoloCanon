@@ -10,6 +10,8 @@ import settings.usecase.UpdateCheckboxName
 @ContributesBinding(AppScope::class)
 class UpdateCheckboxNameImpl constructor(private val settingsRepo: SettingsRepo) : UpdateCheckboxName {
     override suspend fun invoke(whichBox: Int, newName: String) {
-        settingsRepo.updateCheckbox(whichBox = whichBox) { it.copy(name = newName) }
+        settingsRepo.updateCheckbox(
+            whichBox = whichBox,
+        ) { it.copy(name = newName) }
     }
 }

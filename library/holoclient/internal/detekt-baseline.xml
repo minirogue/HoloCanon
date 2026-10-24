@@ -2,6 +2,6 @@
 <SmellBaseline>
   <ManuallySuppressedIssues/>
   <CurrentIssues>
-    <ID>TooGenericExceptionCaught:UpdateMediaDatabaseUseCase.kt$UpdateMediaDatabaseUseCase$e: Exception</ID>
+    <ID>TooGenericExceptionCaught:UpdateMediaDatabaseUseCase.kt:UpdateMediaDatabaseUseCase$e: Exception</ID>
   </CurrentIssues>
 </SmellBaseline>

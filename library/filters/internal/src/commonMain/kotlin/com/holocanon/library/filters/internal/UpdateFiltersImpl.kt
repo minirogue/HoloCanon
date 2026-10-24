@@ -40,7 +40,9 @@ class UpdateFiltersImpl(
         launch { updatePublisherFilters() }
     }
 
-    private suspend fun updatePublisherFilters() = withContext(Dispatchers.Default) {
+    private suspend fun updatePublisherFilters() = withContext(
+        Dispatchers.Default,
+    ) {
         var tempFilter: FilterObjectDto?
         val publisherFilterText = "Publisher"
 
@@ -52,7 +54,9 @@ class UpdateFiltersImpl(
             ),
         )
         if (insertWorked < 0) {
-            val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_PUBLISHER)
+            val filterTypeDto = daoFilter.getFilterType(
+                FilterTypeDto.FILTERCOLUMN_PUBLISHER,
+            )
             filterTypeDto.text = publisherFilterText
             daoFilter.update(filterTypeDto)
         }
@@ -78,7 +82,9 @@ class UpdateFiltersImpl(
         }
     }
 
-    private suspend fun updateSeriesFilters() = withContext(Dispatchers.Default) {
+    private suspend fun updateSeriesFilters() = withContext(
+        Dispatchers.Default,
+    ) {
         var tempFilter: FilterObjectDto?
         val seriesFilterText = "Series"
 
@@ -90,7 +96,9 @@ class UpdateFiltersImpl(
             ),
         )
         if (insertWorked < 0) {
-            val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_SERIES)
+            val filterTypeDto = daoFilter.getFilterType(
+                FilterTypeDto.FILTERCOLUMN_SERIES,
+            )
             filterTypeDto.text = seriesFilterText
             daoFilter.update(filterTypeDto)
         }
@@ -98,7 +106,10 @@ class UpdateFiltersImpl(
         val seriesList = daoSeries.getAllNonLive()
         for (series in seriesList) {
             tempFilter =
-                daoFilter.getFilter(series.id, FilterTypeDto.FILTERCOLUMN_SERIES)?.filterObjectDto
+                daoFilter.getFilter(
+                    series.id,
+                    FilterTypeDto.FILTERCOLUMN_SERIES,
+                )?.filterObjectDto
             if (tempFilter == null) {
                 tempFilter = FilterObjectDto(
                     series.id,
@@ -114,14 +125,24 @@ class UpdateFiltersImpl(
         }
     }
 
-    private suspend fun updateMediaTypeFilters() = withContext(Dispatchers.Default) {
+    private suspend fun updateMediaTypeFilters() = withContext(
+        Dispatchers.Default,
+    ) {
         var tempFilter: FilterObjectDto?
         val mediaTypeText = "Media Type"
 
         val insertWorked =
-            daoFilter.insert(FilterTypeDto(FilterTypeDto.FILTERCOLUMN_TYPE, true, mediaTypeText))
+            daoFilter.insert(
+                FilterTypeDto(
+                    FilterTypeDto.FILTERCOLUMN_TYPE,
+                    true,
+                    mediaTypeText,
+                ),
+            )
         if (insertWorked < 0) {
-            val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_TYPE)
+            val filterTypeDto = daoFilter.getFilterType(
+                FilterTypeDto.FILTERCOLUMN_TYPE,
+            )
             filterTypeDto.text = mediaTypeText
             daoFilter.update(filterTypeDto)
         }
@@ -148,7 +169,9 @@ class UpdateFiltersImpl(
     }
 
     @Suppress("LongMethod")
-    private suspend fun updateCheckboxFilters() = withContext(Dispatchers.Default) {
+    private suspend fun updateCheckboxFilters() = withContext(
+        Dispatchers.Default,
+    ) {
         val injectedCheckboxText = checkboxText.first()
         var tempFilter: FilterObjectDto?
         // add checkbox filters
@@ -160,13 +183,18 @@ class UpdateFiltersImpl(
             ),
         )
         if (insertWorked < 0) {
-            val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE)
+            val filterTypeDto = daoFilter.getFilterType(
+                FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE,
+            )
             filterTypeDto.text = injectedCheckboxText[0]
             daoFilter.update(filterTypeDto)
         }
 
         tempFilter =
-            daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE)?.filterObjectDto
+            daoFilter.getFilter(
+                1,
+                FilterTypeDto.FILTERCOLUMN_CHECKBOX_ONE,
+            )?.filterObjectDto
         if (tempFilter == null) {
             tempFilter = FilterObjectDto(
                 1,
@@ -188,12 +216,17 @@ class UpdateFiltersImpl(
             ),
         )
         if (insertWorked < 0) {
-            val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO)
+            val filterTypeDto = daoFilter.getFilterType(
+                FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO,
+            )
             filterTypeDto.text = injectedCheckboxText[1]
             daoFilter.update(filterTypeDto)
         }
         tempFilter =
-            daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO)?.filterObjectDto
+            daoFilter.getFilter(
+                1,
+                FilterTypeDto.FILTERCOLUMN_CHECKBOX_TWO,
+            )?.filterObjectDto
         if (tempFilter == null) {
             tempFilter = FilterObjectDto(
                 1,
@@ -215,12 +248,17 @@ class UpdateFiltersImpl(
             ),
         )
         if (insertWorked < 0) {
-            val filterTypeDto = daoFilter.getFilterType(FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE)
+            val filterTypeDto = daoFilter.getFilterType(
+                FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE,
+            )
             filterTypeDto.text = injectedCheckboxText[2]
             daoFilter.update(filterTypeDto)
         }
         tempFilter =
-            daoFilter.getFilter(1, FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE)?.filterObjectDto
+            daoFilter.getFilter(
+                1,
+                FilterTypeDto.FILTERCOLUMN_CHECKBOX_THREE,
+            )?.filterObjectDto
         if (tempFilter == null) {
             tempFilter = FilterObjectDto(
                 1,

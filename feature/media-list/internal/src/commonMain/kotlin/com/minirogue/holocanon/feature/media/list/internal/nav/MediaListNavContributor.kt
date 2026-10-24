@@ -23,7 +23,11 @@ class MediaListNavContributor internal constructor(private val viewModelProvider
         setAppBar: (AppBarConfig) -> Unit,
     ) = with(navGraphBuilder) {
         composable<MediaListNav> {
-            MediaListScreen(viewModelProvider = viewModelProvider, navController = navController, setAppBar = setAppBar)
+            MediaListScreen(
+                viewModelProvider = viewModelProvider,
+                navController = navController,
+                setAppBar = setAppBar,
+            )
         }
     }
 }

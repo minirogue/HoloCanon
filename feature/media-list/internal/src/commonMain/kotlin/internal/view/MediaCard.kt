@@ -57,7 +57,9 @@ internal fun MediaCard(
                     .width(100.dp)
                     .align(Alignment.Top),
                 sourceUri = mediaAndNotes.mediaItem.imageUrl,
-                contentDescription = stringResource(Res.string.media_list_cover_art),
+                contentDescription = stringResource(
+                    Res.string.media_list_cover_art,
+                ),
                 isNetworkAllowed = isNetworkAllowed,
             )
             Column(

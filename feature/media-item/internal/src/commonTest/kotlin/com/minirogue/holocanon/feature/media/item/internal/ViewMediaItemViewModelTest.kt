@@ -48,7 +48,11 @@ class ViewMediaItemViewModelTest : CoroutineTest {
         number = null,
         publisher = Company.RANDOM_HOUSE,
     )
-    val dummyNotes = MediaNotes(isBox1Checked = true, isBox2Checked = false, isBox3Checked = true)
+    val dummyNotes = MediaNotes(
+        isBox1Checked = true,
+        isBox2Checked = false,
+        isBox3Checked = true,
+    )
     val dummyCheckboxSettings = CheckboxSettings(
         checkbox1Setting = CheckboxSetting("1", false),
         checkbox2Setting = CheckboxSetting("2", true),

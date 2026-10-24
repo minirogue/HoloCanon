@@ -23,7 +23,10 @@ import org.jetbrains.compose.resources.painterResource
 private const val ROTATION_DURATION = 2000
 
 @Composable
-fun LoadingScreen() = Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+fun LoadingScreen() = Box(
+    modifier = Modifier.fillMaxSize(),
+    contentAlignment = Alignment.Center,
+) {
     val infiniteTransition = rememberInfiniteTransition()
     val rotation by infiniteTransition.animateFloat(
         initialValue = 0f,

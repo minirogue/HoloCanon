@@ -15,7 +15,9 @@ class FlipIsCheckboxActiveImpl(private val settingsRepo: SettingsRepo, private v
     FlipIsCheckboxActive {
     override suspend fun invoke(whichBox: Int) {
         val newSetting =
-            settingsRepo.updateCheckbox(whichBox = whichBox) { it.copy(isInUse = !it.isInUse) }
+            settingsRepo.updateCheckbox(
+                whichBox = whichBox,
+            ) { it.copy(isInUse = !it.isInUse) }
                 .getOrNull()
         if (newSetting?.isInUse == false) {
             val filter = MediaFilter(
@@ -23,9 +25,14 @@ class FlipIsCheckboxActiveImpl(private val settingsRepo: SettingsRepo, private v
                 name = newSetting.name,
                 filterType = when (whichBox) {
                     1 -> FilterType.CheckboxOne
+
                     2 -> FilterType.CheckboxTwo
+
                     3 -> FilterType.CheckboxThree
-                    else -> error("whickBox parameter of UpdateCheckboxActive must be 1, 2, or 3")
+
+                    else -> error(
+                        "whickBox parameter of UpdateCheckboxActive must be 1, 2, or 3",
+                    )
                 },
                 isPositive = true,
                 isActive = false,

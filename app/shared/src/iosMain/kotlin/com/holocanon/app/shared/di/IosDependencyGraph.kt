@@ -277,7 +277,11 @@ interface IosDependencyGraph : AppDependencyGraph {
             create = false,
             error = null,
         )
-        return SortStyleDataStorePath(requireNotNull(documentDirectory).path + "/$SORT_STYLE_DATASTORE_FILE_NAME")
+        return SortStyleDataStorePath(
+            requireNotNull(
+                documentDirectory,
+            ).path + "/$SORT_STYLE_DATASTORE_FILE_NAME",
+        )
     }
 
     @Provides
@@ -299,7 +303,11 @@ interface IosDependencyGraph : AppDependencyGraph {
             create = false,
             error = null,
         )
-        return SettingsDataStorePath(requireNotNull(documentDirectory).path + "/${SETTINGS_DATASTORE_FILE_NAME}")
+        return SettingsDataStorePath(
+            requireNotNull(
+                documentDirectory,
+            ).path + "/${SETTINGS_DATASTORE_FILE_NAME}",
+        )
     }
 
     @Provides
@@ -351,4 +359,6 @@ interface IosDependencyGraph : AppDependencyGraph {
 }
 
 actual fun getAppDependencyGraph(platformDependencies: PlatformDependencies): AppDependencyGraph =
-    createGraphFactory<IosDependencyGraph.Factory>().create(platformDependencies)
+    createGraphFactory<IosDependencyGraph.Factory>().create(
+        platformDependencies,
+    )

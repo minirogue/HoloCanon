@@ -60,7 +60,9 @@ internal fun MediaListScreen(
     setAppBar: (AppBarConfig) -> Unit,
     mediaListViewModel: MediaListViewModel = viewModel { viewModelProvider() }, // Scope to Activity
 ) = Column(modifier = modifier.padding(horizontal = 8.dp)) {
-    val mediaList by mediaListViewModel.mediaList.collectAsStateSafely(emptyList())
+    val mediaList by mediaListViewModel.mediaList.collectAsStateSafely(
+        emptyList(),
+    )
 
     LaunchedEffect(true) {
         val config = AppBarConfig.DEFAULT
@@ -122,15 +124,27 @@ private fun AppBarAction(onSelectSortStyle: (Int) -> Unit) = Box {
         onDismissRequest = { isMenuOpen = false },
     ) {
         DropdownMenuItem(
-            text = { Text(stringResource(Res.string.media_list_sort_release_date)) },
+            text = {
+                Text(
+                    stringResource(Res.string.media_list_sort_release_date),
+                )
+            },
             onClick = { onSelectSortStyle(SortStyle.SORT_DATE) },
         )
         DropdownMenuItem(
-            text = { Text(stringResource(Res.string.media_list_sort_menu_timeline)) },
+            text = {
+                Text(
+                    stringResource(Res.string.media_list_sort_menu_timeline),
+                )
+            },
             onClick = { onSelectSortStyle(SortStyle.SORT_TIMELINE) },
         )
         DropdownMenuItem(
-            text = { Text(stringResource(Res.string.media_list_sort_menu_title)) },
+            text = {
+                Text(
+                    stringResource(Res.string.media_list_sort_menu_title),
+                )
+            },
             onClick = { onSelectSortStyle(SortStyle.SORT_TITLE) },
         )
     }

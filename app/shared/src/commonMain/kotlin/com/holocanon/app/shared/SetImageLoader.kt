@@ -1,3 +1,5 @@
+package com.holocanon.app.shared
+
 import androidx.compose.runtime.Composable
 import coil3.ImageLoader
 import coil3.compose.setSingletonImageLoaderFactory

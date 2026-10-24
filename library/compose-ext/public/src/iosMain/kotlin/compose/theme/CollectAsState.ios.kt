@@ -10,4 +10,6 @@ import kotlinx.coroutines.flow.StateFlow
 actual fun <T> StateFlow<T>.collectAsStateSafely(): State<T> = collectAsState()
 
 @Composable
-actual fun <T> Flow<T>.collectAsStateSafely(initialState: T): State<T> = collectAsState(initialState)
+actual fun <T> Flow<T>.collectAsStateSafely(initialState: T): State<T> = collectAsState(
+    initialState,
+)

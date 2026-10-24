@@ -26,7 +26,11 @@ class GetFilterImplTest {
     fun `invoke returns MediaFilter when dao returns FullFilter`() = runTest {
         // Arrange
         daoFilter.setGetFilterResult(
-            fullFilter(id = 1, name = "MediaType1", filterType = FilterType.MediaType),
+            fullFilter(
+                id = 1,
+                name = "MediaType1",
+                filterType = FilterType.MediaType,
+            ),
         )
 
         // Act
@@ -34,7 +38,13 @@ class GetFilterImplTest {
 
         // Assert
         assertEquals(
-            MediaFilter(1, "MediaType1", FilterType.MediaType, isPositive = true, isActive = true),
+            MediaFilter(
+                1,
+                "MediaType1",
+                FilterType.MediaType,
+                isPositive = true,
+                isActive = true,
+            ),
             result,
         )
     }
@@ -65,11 +75,20 @@ class GetFilterImplTest {
         )
 
         // Act
-        val result = getFilter(2, FilterType.CheckboxOne.legacyIntegerConversion)
+        val result = getFilter(
+            2,
+            FilterType.CheckboxOne.legacyIntegerConversion,
+        )
 
         // Assert
         assertEquals(
-            MediaFilter(2, "Checkbox1", FilterType.CheckboxOne, isPositive = false, isActive = false),
+            MediaFilter(
+                2,
+                "Checkbox1",
+                FilterType.CheckboxOne,
+                isPositive = false,
+                isActive = false,
+            ),
             result,
         )
     }

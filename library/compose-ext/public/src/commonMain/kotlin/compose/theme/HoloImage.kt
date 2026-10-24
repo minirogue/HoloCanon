@@ -27,7 +27,9 @@ fun HoloImage(
         modifier = modifier,
         model = ImageRequest.Builder(LocalPlatformContext.current)
             .data(sourceUri)
-            .networkCachePolicy(if (isNetworkAllowed) CachePolicy.ENABLED else CachePolicy.DISABLED)
+            .networkCachePolicy(
+                if (isNetworkAllowed) CachePolicy.ENABLED else CachePolicy.DISABLED,
+            )
             .build(),
         contentDescription = contentDescription,
         contentScale = scale,

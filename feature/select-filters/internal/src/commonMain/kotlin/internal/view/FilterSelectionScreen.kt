@@ -21,7 +21,11 @@ internal fun FilterSelectionScreen(
     viewModel: FilterSelectionViewModel = viewModel { viewModelProvider() },
 ) {
     viewModel.state.withStateOrLoadingScreen { state ->
-        Column(modifier = modifier.fillMaxSize().verticalScroll(rememberScrollState())) {
+        Column(
+            modifier = modifier.fillMaxSize().verticalScroll(
+                rememberScrollState(),
+            ),
+        ) {
             ActiveFilters(
                 state = state,
                 deactivateFilter = viewModel::deactivateFilter,

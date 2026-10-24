@@ -40,7 +40,11 @@ actual fun prepareFilePicker(
     return remember {
         SelectFileLauncher {
             picker.setDelegate(pickerDelegate)
-            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(picker, true, null)
+            UIApplication.sharedApplication.keyWindow?.rootViewController?.presentViewController(
+                picker,
+                true,
+                null,
+            )
         }
     }
 }
@@ -58,8 +62,13 @@ private class PickerDelegate(private val pickerArgs: PickerArgs, private val onC
         didPickDocumentsAtURLs.onEach { file ->
             (file as? NSURL)?.let { nsUrl ->
                 when (pickerArgs) {
-                    is PickerArgs.Get -> pickerArgs.onResult(NSInputStream(nsUrl).asSource())
-                    is PickerArgs.Save -> pickerArgs.onResult(NSOutputStream(nsUrl, false).asSink())
+                    is PickerArgs.Get -> pickerArgs.onResult(
+                        NSInputStream(nsUrl).asSource(),
+                    )
+
+                    is PickerArgs.Save -> pickerArgs.onResult(
+                        NSOutputStream(nsUrl, false).asSink(),
+                    )
                 }
             }
         }

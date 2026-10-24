@@ -35,7 +35,9 @@ class GetMediaListWithNotesImpl(
      * Returns Flow containing a list of [MediaAndNotes] based on the current filters.
      */
     @OptIn(kotlinx.coroutines.ExperimentalCoroutinesApi::class)
-    override fun invoke(): Flow<List<MediaAndNotes>> = getActiveFilters().combine(getPermanentFilterSettings()) {
+    override fun invoke(): Flow<List<MediaAndNotes>> = getActiveFilters().combine(
+        getPermanentFilterSettings(),
+    ) {
             filterList,
             permanentFilters,
         ->
@@ -61,10 +63,17 @@ class GetMediaListWithNotesImpl(
         permanentFilterSettings: Map<MediaType, Boolean>,
     ): String = withContext(dispatchers.default) {
         val gettingPermanentFilters =
-            async { getPermanentFiltersAsStringBuilder(permanentFilterSettings) }
+            async {
+                getPermanentFiltersAsStringBuilder(
+                    permanentFilterSettings,
+                )
+            }
         val filterTypeIsPositive = mutableMapOf<Int, Boolean>()
         for (filterType in daoFilter.getAllFilterTypesNonLive()) {
-            filterTypeIsPositive.put(filterType.typeId, filterType.isFilterPositive)
+            filterTypeIsPositive.put(
+                filterType.typeId,
+                filterType.isFilterPositive,
+            )
         }
         val queryBuild = StringBuilder()
         val joins = StringBuilder()

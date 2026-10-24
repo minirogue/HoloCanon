@@ -31,7 +31,11 @@ class HttpClientWrapperImpl internal constructor(
                 logger.info(TAG, "http IOException", ioException)
                 HoloResult.Failure(ioException)
             } catch (serializationException: SerializationException) {
-                logger.info(TAG, "http serializationException", serializationException)
+                logger.info(
+                    TAG,
+                    "http serializationException",
+                    serializationException,
+                )
                 HoloResult.Failure(serializationException)
             }
         }

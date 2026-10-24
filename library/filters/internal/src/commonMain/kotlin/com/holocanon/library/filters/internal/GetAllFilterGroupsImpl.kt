@@ -50,16 +50,27 @@ class GetAllFilterGroupsImpl(
             }
     }
 
-    private fun FilterTypeDto.toFilterGroup(): FilterGroup =
-        FilterGroup(type = getTypeFromInt(typeId), isFilterPositive = isFilterPositive, text = text)
+    private fun FilterTypeDto.toFilterGroup(): FilterGroup = FilterGroup(
+        type = getTypeFromInt(typeId),
+        isFilterPositive = isFilterPositive,
+        text = text,
+    )
 
     private fun getTypeFromInt(typeId: Int): FilterType = when (typeId) {
         FILTERCOLUMN_TYPE -> FilterType.MediaType
+
         FILTERCOLUMN_CHECKBOX_ONE -> FilterType.CheckboxOne
+
         FILTERCOLUMN_CHECKBOX_TWO -> FilterType.CheckboxTwo
+
         FILTERCOLUMN_CHECKBOX_THREE -> FilterType.CheckboxThree
+
         FILTERCOLUMN_SERIES -> FilterType.Series
+
         FILTERCOLUMN_PUBLISHER -> FilterType.Publisher
-        else -> throw IllegalArgumentException("$typeId is not a valid filter type id")
+
+        else -> throw IllegalArgumentException(
+            "$typeId is not a valid filter type id",
+        )
     }
 }

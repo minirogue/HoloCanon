@@ -1,6 +1,5 @@
 package internal.view
 
-import ActiveFilterChip
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.horizontalScroll
@@ -14,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.unit.dp
+import com.holocanon.library.filter.ui.ActiveFilterChip
 import com.holocanon.library.sorting.model.SortStyle
 import filters.model.MediaFilter
 import holocanon.feature.media_list.internal.generated.resources.Res
@@ -45,7 +45,9 @@ internal fun FilterGroup(
         leadingIcon = {
             Icon(
                 modifier = Modifier.rotate(sortArrowRotation.value),
-                painter = painterResource(Res.drawable.media_list_ascending_sort),
+                painter = painterResource(
+                    Res.drawable.media_list_ascending_sort,
+                ),
                 contentDescription = if (sortStyle.ascending) {
                     stringResource(Res.string.media_list_ascending)
                 } else {

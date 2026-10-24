@@ -38,15 +38,32 @@ class ImportMediaNotesJsonImpl(
     private val logger: HoloLogger,
 ) : ImportMediaNotesJson {
     @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
-    override suspend fun invoke(inputStream: RawSource) = withContext(NonCancellable + dispatchers.io) {
+    override suspend fun invoke(inputStream: RawSource) = withContext(
+        NonCancellable + dispatchers.io,
+    ) {
         try {
             val mediaNotesJsonDto = inputStream.buffered().use {
                 json.decodeFromSource<MediaNotesJsonV1>(it)
             }
 
-            launch { updateCheckboxName(BOX_1, mediaNotesJsonDto.checkboxNames.name1) }
-            launch { updateCheckboxName(BOX_2, mediaNotesJsonDto.checkboxNames.name2) }
-            launch { updateCheckboxName(BOX_3, mediaNotesJsonDto.checkboxNames.name3) }
+            launch {
+                updateCheckboxName(
+                    BOX_1,
+                    mediaNotesJsonDto.checkboxNames.name1,
+                )
+            }
+            launch {
+                updateCheckboxName(
+                    BOX_2,
+                    mediaNotesJsonDto.checkboxNames.name2,
+                )
+            }
+            launch {
+                updateCheckboxName(
+                    BOX_3,
+                    mediaNotesJsonDto.checkboxNames.name3,
+                )
+            }
             daoMedia.clearAllMediaNotes()
             mediaNotesJsonDto.mediaNotes.map { notes ->
                 launch { daoMedia.insert(notes.toRoomDto()) }
@@ -63,7 +80,11 @@ class ImportMediaNotesJsonImpl(
 
     private suspend fun onFailed(e: Exception) {
         logger.error(TAG, "Failed to parse Media Notes JSON", e)
-        sendInAppNotification(getString(Res.string.media_notes_there_was_an_error_importing_your_data))
+        sendInAppNotification(
+            getString(
+                Res.string.media_notes_there_was_an_error_importing_your_data,
+            ),
+        )
     }
 
     private suspend fun onSuccess() {

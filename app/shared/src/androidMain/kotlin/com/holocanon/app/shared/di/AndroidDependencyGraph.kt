@@ -19,8 +19,9 @@ interface AndroidDependencyGraph : AppDependencyGraph {
     fun provideApplication(platformDependencies: PlatformDependencies): Application = platformDependencies.application
 
     @Provides
-    fun provideConnManager(app: Application): ConnectivityManager =
-        app.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    fun provideConnManager(app: Application): ConnectivityManager = app.getSystemService(
+        Context.CONNECTIVITY_SERVICE,
+    ) as ConnectivityManager
 
     @DependencyGraph.Factory
     fun interface Factory {
@@ -29,4 +30,6 @@ interface AndroidDependencyGraph : AppDependencyGraph {
 }
 
 actual fun getAppDependencyGraph(platformDependencies: PlatformDependencies): AppDependencyGraph =
-    createGraphFactory<AndroidDependencyGraph.Factory>().create(platformDependencies)
+    createGraphFactory<AndroidDependencyGraph.Factory>().create(
+        platformDependencies,
+    )

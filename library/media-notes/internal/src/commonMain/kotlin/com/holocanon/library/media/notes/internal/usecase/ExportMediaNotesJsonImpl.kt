@@ -37,7 +37,9 @@ class ExportMediaNotesJsonImpl(
     private val logger: HoloLogger,
 ) : ExportMediaNotesJson {
     @OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
-    override suspend fun invoke(outputStream: RawSink) = withContext(NonCancellable + dispatchers.io) {
+    override suspend fun invoke(outputStream: RawSink) = withContext(
+        NonCancellable + dispatchers.io,
+    ) {
         val checkBoxSettings = getCheckboxSettings().first()
         val allMediaNotes = daoMedia.getAllMediaNotes().first()
 
@@ -64,7 +66,11 @@ class ExportMediaNotesJsonImpl(
 
     private suspend fun onFailed(exception: Exception) {
         logger.error(TAG, "Failed to export media notes", exception)
-        sendInAppNotification(getString(Res.string.media_notes_there_was_an_error_exporting_your_data))
+        sendInAppNotification(
+            getString(
+                Res.string.media_notes_there_was_an_error_exporting_your_data,
+            ),
+        )
     }
 
     private suspend fun onSuccess() {

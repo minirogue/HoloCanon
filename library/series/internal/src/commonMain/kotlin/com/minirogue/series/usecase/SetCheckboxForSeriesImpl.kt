@@ -19,7 +19,9 @@ class SetCheckboxForSeriesImpl(private val daoMedia: DaoMedia) : SetCheckboxForS
     override suspend operator fun invoke(checkbox: Checkbox, seriesId: Int, newValue: Boolean) =
         withContext(Dispatchers.Default) {
             updatingNotesMutex.withLock {
-                val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(seriesId)
+                val listOfNotes = daoMedia.getMediaNotesBySeriesNonLive(
+                    seriesId,
+                )
                 for (notes in listOfNotes) {
                     when (checkbox) {
                         Checkbox.CHECKBOX_1 -> notes.isBox1Checked = newValue

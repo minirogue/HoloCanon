@@ -52,7 +52,9 @@ internal class FilterSelectionViewModel(
     }
 
     fun flipFilterType(filterGroup: FilterGroup) = viewModelScope.launch {
-        updateFilter(filterGroup.copy(isFilterPositive = !filterGroup.isFilterPositive))
+        updateFilter(
+            filterGroup.copy(isFilterPositive = !filterGroup.isFilterPositive),
+        )
     }
 
     fun flipFilterActive(mediaFilter: MediaFilter) = viewModelScope.launch {

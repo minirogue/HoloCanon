@@ -11,7 +11,9 @@ import java.io.FileWriter
 
 internal object JsonWriter {
     private val fileMutex = Mutex()
-    suspend fun write(json: String, path: String) = withContext(Dispatchers.IO) {
+    suspend fun write(json: String, path: String) = withContext(
+        Dispatchers.IO,
+    ) {
         launch {
             fileMutex.withLock {
                 File(path).parentFile.mkdirs()

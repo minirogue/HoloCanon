@@ -101,7 +101,9 @@ class UpdateMediaDatabaseUseCase internal constructor(
                     updateFilters()
                 }
                 withContext(Dispatchers.Main) {
-                    sendInAppNotification(getString(Res.string.holoclient_database_synced))
+                    sendInAppNotification(
+                        getString(Res.string.holoclient_database_synced),
+                    )
                 }
             }
         }
