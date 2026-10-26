@@ -1,9 +1,9 @@
 pluginManagement {
     resolutionStrategy {
         eachPlugin {
-            if (requested.id.toString() == "com.github.minirogue")
-//                useModule("org.minirogue:minirogue-build-logic:$requested.version") // local
-                useModule("com.github.Minirogue:minirogue-build-logic:$requested.version")
+            if (requested.id.id == "minirogue.settings")
+                useModule("com.github.Minirogue.minirogue-build-logic:minirogue.settings.gradle.plugin:${requested.version}",)
+//             useModule("org.minirogue:plugins:${requested.version}") // mavenLocal
         }
     }
     repositories {
@@ -16,7 +16,7 @@ pluginManagement {
 }
 plugins {
     id("org.jetbrains.kotlinx.kover.aggregation") version "0.9.8"
-    id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
+    id("minirogue.settings") version "0.3.7"
 }
 
 dependencyResolutionManagement {
