@@ -15,8 +15,8 @@ pluginManagement {
     }
 }
 plugins {
-    id("org.jetbrains.kotlinx.kover.aggregation") version "0.9.8"
-    id("minirogue.settings") version "0.3.7"
+    id("org.jetbrains.kotlinx.kover.aggregation") version "0.9.11"
+    id("minirogue.settings") version "0.3.8"
 }
 
 dependencyResolutionManagement {
