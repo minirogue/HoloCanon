@@ -3,7 +3,6 @@ andoidxActivityCompose = "1.13.0"
 androidMaterial = "1.14.0"
 androidxTest = "1.7.0"
 appCompat = "1.7.1"
-buildLogic = "0.3.7"
 coilCompose = "3.5.0"
 commonsCSV = "1.14.1"
 composeLifecycle = "2.11.0"
@@ -50,6 +49,3 @@ ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-jso
 # TODO need to find a way to make sure this is in sync with version from plugin
 room-testing = { group = "androidx.room", name = "room-testing", version.ref = "room" }
 sqlite-driver = { group = "androidx.sqlite", name = "sqlite-bundled", version.ref = "sqlite" }
-
-[plugins]
-minirogue-plugin = { id = "com.github.minirogue", version.ref = "buildLogic" }
